@@ -13,13 +13,17 @@ class RelatedType(models.Model):
 class RelatedContent(models.Model):
     related_type = models.ForeignKey(RelatedType)
     order = models.IntegerField(default=0)
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    source_type = models.ForeignKey(ContentType, related_name="from")
+    source_id = models.PositiveIntegerField()
+    source_object = generic.GenericForeignKey('source_type', 'source_id')
+
+    destination_type = models.ForeignKey(ContentType, related_name="to")
+    destination_id = models.PositiveIntegerField()
+    destination_object = generic.GenericForeignKey('destination_type', 'destination_id')
 
     class Meta:
         ordering = ["order"]
 
     def __unicode__(self):
         return u"%s (%d): %s" % (self.related_type, self.order,
-                                 self.content_object)
+                                 self.destination_object)
