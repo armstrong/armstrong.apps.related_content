@@ -7,6 +7,7 @@ from armstrong.hatband import widgets
 from .models import RelatedContent
 from .models import RelatedType
 
+
 class RelatedContentInlineForm(forms.ModelForm):
     class Meta:
         widgets = {

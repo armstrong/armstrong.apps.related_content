@@ -20,4 +20,6 @@ class RelatedContentManagerTestCase(TestCase):
             destination_object=two
         )
 
-        self.assertTrue(two in [a.destination_object for a in one.related.by_type("articles")])
+        destination_objects = [a.destination_object for a in
+                one.related.by_type("articles")]
+        self.assertTrue(two in destination_objects)

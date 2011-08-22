@@ -50,7 +50,8 @@ class RelatedContentTestCase(TestCase):
 
     def test_has_destination_id(self):
         m = self.generate_model()
-        self.assertModelHasField(m, "destination_id", models.PositiveIntegerField)
+        self.assertModelHasField(m, "destination_id",
+                models.PositiveIntegerField)
 
     def test_has_destination_object(self):
         m = self.generate_model()

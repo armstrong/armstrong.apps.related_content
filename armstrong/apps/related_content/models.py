@@ -6,10 +6,10 @@ from . import managers
 
 
 class RelatedType(models.Model):
-	title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
 
-	def __unicode__(self):
-		return self.title
+    def __unicode__(self):
+        return self.title
 
 
 class RelatedContent(models.Model):
@@ -21,9 +21,11 @@ class RelatedContent(models.Model):
 
     destination_type = models.ForeignKey(ContentType, related_name="to")
     destination_id = models.PositiveIntegerField()
-    destination_object = generic.GenericForeignKey('destination_type', 'destination_id')
+    destination_object = generic.GenericForeignKey('destination_type',
+            'destination_id')
 
     objects = managers.RelatedContentManager()
+
     class Meta:
         ordering = ["order"]
 
