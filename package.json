@@ -1,6 +1,6 @@
 {
     "name": "armstrong.apps.related_content",
-    "version": "0.1.0.alpha.0",
+    "version": "0.1.0",
     "description": "Provides mechanism for relating content to other models",
     "install_requires": [
         "armstrong.hatband>=0.4.0"
