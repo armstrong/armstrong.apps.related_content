@@ -1,8 +1,13 @@
-from django.db import models
+from django.contrib.contenttypes.generic import GenericRelation
 
 from .models import RelatedContent
 
 
-class RelatedContentField(models.ManyToManyField):
-	def __init__(self, **kwargs):
-		super(RelatedContentField, self).__init__(RelatedContent, **kwargs)
+class RelatedContentField(GenericRelation):
+    def __init__(self, **kwargs):
+        defaults = {
+            "object_id_field": "source_id",
+            "content_type_field": "source_type",
+        }
+        defaults.update(kwargs)
+        super(RelatedContentField, self).__init__(RelatedContent, **defaults)

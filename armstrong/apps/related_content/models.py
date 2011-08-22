@@ -2,6 +2,8 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
+from . import managers
+
 
 class RelatedType(models.Model):
 	title = models.CharField(max_length=100)
@@ -21,6 +23,7 @@ class RelatedContent(models.Model):
     destination_id = models.PositiveIntegerField()
     destination_object = generic.GenericForeignKey('destination_type', 'destination_id')
 
+    objects = managers.RelatedContentManager()
     class Meta:
         ordering = ["order"]
 
