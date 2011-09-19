@@ -20,7 +20,10 @@ class LeadArtNode(template.Node):
         related_art = RelatedContent.objects.by_type('lead_art')\
                                             .filter(source_type=obj_type)\
                                             .filter(source_id=obj.id)
-        art = related_art[0].destination_object
+        try:
+            art = related_art[0].destination_object
+        except IndexError:
+            return ''
         return art.render_visual(self.preset.resolve(context))
 
 
