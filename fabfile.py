@@ -1,4 +1,5 @@
 from armstrong.dev.tasks import *
+import tempfile
 
 settings = {
     'DEBUG': True,
@@ -22,6 +23,7 @@ settings = {
         'large': {'width': 270},
     },
     'STATIC_URL': '/static/',
+    'MEDIA_ROOT': tempfile.mkdtemp(),
 }
 
 main_app = "related_content"
