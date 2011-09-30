@@ -7,6 +7,7 @@ settings = {
         'django.contrib.contenttypes',
         'armstrong.apps.related_content',
         'armstrong.apps.related_content.tests.related_content_support',
+        'south',
     ),
     'ROOT_URLCONF': 'armstrong.apps.related_content.tests_related_content_support',
     'SITE_ID': 1,
