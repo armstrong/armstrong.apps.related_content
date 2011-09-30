@@ -65,13 +65,14 @@ def build_package(dirpath, dirnames, filenames):
         if os.path.altsep:
             pkg = pkg.replace(os.path.altsep, '.')
         packages.append(pkg)
-    elif filenames:
-        # Strip off the length of the package name plus the trailing slash
-        prefix = dirpath[len(info["name"]) + 1:]
-        for f in filenames:
-            # Ignore all dot files and any compiled
-            if f.startswith(".") or f.endswith(".pyc"):
-                continue
+    # Strip off the length of the package name plus the trailing slash
+    prefix = dirpath[len(info["name"]) + 1:]
+    for f in filenames:
+        # Ignore all dot files and any compiled
+        if f == 'steps.py' or \
+                not (f.startswith(".") or
+                     f.endswith(".pyc") or
+                     f.endswith(".py")):
             data_files.append(os.path.join(prefix, f))
 
 

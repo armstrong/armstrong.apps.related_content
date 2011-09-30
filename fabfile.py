@@ -8,11 +8,19 @@ settings = {
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.sites',
+        'armstrong.core.arm_content',
+        'armstrong.apps.content',
+        'armstrong.apps.images',
         'armstrong.apps.related_content',
         'armstrong.apps.related_content.tests.related_content_support',
+        'sorl.thumbnail',
     ),
     'ROOT_URLCONF': 'armstrong.apps.related_content.tests_related_content_support',
     'SITE_ID': 1,
+    'ARMSTRONG_PRESETS': {
+        'small': {'width': 175},
+        'large': {'width': 270},
+    },
     'STATIC_URL': '/static/',
 }
 
