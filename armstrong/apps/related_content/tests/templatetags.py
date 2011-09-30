@@ -7,10 +7,6 @@ from ._utils import TestCase
 from .related_content_support.models import Article, Image
 from ..models import RelatedType, RelatedContent
 
-class LeadArtNodeTestCase(TestCase):
-    def testSomething(self):
-        pass
-
 
 class lead_artTestCase(TestCase):
     def setUp(self):
