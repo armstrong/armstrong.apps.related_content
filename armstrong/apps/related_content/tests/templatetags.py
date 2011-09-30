@@ -4,8 +4,7 @@ from django.template import Context, NodeList, RequestContext, Template,\
                             TemplateDoesNotExist, Variable
 from django.core.files import File
 from ._utils import TestCase
-from armstrong.apps.images.models import Image
-from .related_content_support.models import Article
+from .related_content_support.models import Article, Image
 from ..models import RelatedType, RelatedContent
 
 class LeadArtNodeTestCase(TestCase):
@@ -18,12 +17,7 @@ class lead_artTestCase(TestCase):
         self.obj = Article.objects.create(title='foo')
         lead_art, created = RelatedType.objects.get_or_create(title='lead_art')
         path = os.path.split(__file__)[0]
-        img = Image.objects.create(title='image',
-                                   slug='image',
-                                   summary='colored boxes',
-                                   pub_status='P',
-                                   pub_date=datetime.datetime.now(),
-                                   image=File(open(path + '/image.png')))
+        img = Image.objects.create(title='image')
         RelatedContent.objects.create(destination_object=img,
                                       source_object=self.obj,
                                       related_type=lead_art)
@@ -38,7 +32,5 @@ class lead_artTestCase(TestCase):
         small_string = "{% load related_content %}{% lead_art obj 'small' %}"
         large_rendered = self.render(large_string)
         small_rendered = self.render(small_string)
-        self.assertTrue(large_rendered.startswith('<img src="cache'))
-        self.assertTrue(small_rendered.startswith('<img src="cache'))
-        self.assertNotEqual(large_rendered, small_rendered)
-        self.assertEqual(large_rendered, self.render(large_string))
+        self.assertEqual(large_rendered, 'Render: large')
+        self.assertEqual(small_rendered, 'Render: small')

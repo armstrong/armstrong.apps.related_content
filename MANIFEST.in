@@ -1,4 +1,3 @@
 include README.rst
 include package.json
-include armstrong/apps/related_content/tests/image.png
 prune build/*
