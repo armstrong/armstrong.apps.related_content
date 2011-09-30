@@ -1,13 +1,10 @@
 from armstrong.dev.tasks import *
+import tempfile
 
 settings = {
     'DEBUG': True,
     'INSTALLED_APPS': (
-        'django.contrib.admin',
-        'django.contrib.auth',
         'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
         'armstrong.apps.related_content',
         'armstrong.apps.related_content.tests.related_content_support',
     ),
