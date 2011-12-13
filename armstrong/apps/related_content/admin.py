@@ -52,7 +52,7 @@ def formfield_for_foreignkey_helper(inline, *args, **kwargs):
     ``args`` and ``kwargs`` to be passed on to ``super``.
 
     This is solely an implementation detail as it's easier to test a function
-    than than provide all of the expectations that the ``GenericTabularInline``
+    than to provide all of the expectations that the ``GenericTabularInline``
     has.
     """
     db_field = args[0]
