@@ -1,3 +1,4 @@
+from django.db.models import ForeignKey
 import fudge
 import random
 from ._utils import TestCase
@@ -69,8 +70,11 @@ class RelatedContentInlineTestCase(TestCase):
         content_type_field = self.get_db_field_by_name("source_type")
         ret = formfield_for_foreignkey_helper({}, content_type_field,
                 *args, **kwargs)
-        returned_args = ret[0]
-        self.assertEqual(tuple(args), returned_args)
+        returned_args = list(ret[0])
+        db_field = returned_args.pop(0)
+        # Test db_field separately to avoid false failure in Django
+        self.assertIsA(db_field, ForeignKey)
+        self.assertEqual(args, returned_args)
 
     def test_returns_kwargs_untouched_if_not_related_type(self):
         args, kwargs = random_args_and_kwargs()
