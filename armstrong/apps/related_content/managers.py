@@ -49,6 +49,10 @@ class RelatedContentQuerySet(query.QuerySet):
         return self.filter(source_object=source)
 
     def by_type(self, type):
+        """
+        Shortcut for retrieving ``RelatedContent`` based on the string
+        value of the ``related_type``.
+        """
         return self.filter(related_type__title=type)
 
 
@@ -69,4 +73,7 @@ class RelatedContentManager(models.Manager):
         return self.get_query_set().by_source(source)
 
     def by_type(self, type):
+        """
+        See ``RelatedContentQuerySet.by_type``
+        """
         return self.get_query_set().by_type(type)
