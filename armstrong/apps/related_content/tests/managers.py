@@ -65,8 +65,20 @@ class RelatedContentManagerTestCase(TestCase):
         self.assertEqual(1, related_content.count())
         self.assertEqual(two, related_content[0].destination_object)
 
+    def test_can_call_by_destination_after_filtering(self):
+        one, two, three = create_one_source_to_two_destinations()
+        related_content = RelatedContent.objects.all().by_destination(two)
+        self.assertEqual(1, related_content.count())
+        self.assertEqual(two, related_content[0].destination_object)
+
     def test_provides_method_for_finding_by_source(self):
         one, two, three = create_two_sources_to_one_destination()
         related_content = RelatedContent.objects.by_source(one)
+        self.assertEqual(1, related_content.count())
+        self.assertEqual(one, related_content[0].source_object)
+
+    def test_can_call_by_source_after_filtering(self):
+        one, two, three = create_two_sources_to_one_destination()
+        related_content = RelatedContent.objects.all().by_source(one)
         self.assertEqual(1, related_content.count())
         self.assertEqual(one, related_content[0].source_object)
