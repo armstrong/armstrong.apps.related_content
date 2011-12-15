@@ -39,11 +39,7 @@ class RelatedContentManagerTestCase(TestCase):
         one, two = generate_fake_articles(2)
 
         t = RelatedType.objects.create(title="articles")
-        c = RelatedContent.objects.create(
-            related_type=t,
-            source_object=one,
-            destination_object=two
-        )
+        relate(t, one, two)
 
         destination_objects = [a.destination_object for a in
                 one.related.by_type("articles")]
