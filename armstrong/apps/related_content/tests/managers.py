@@ -64,3 +64,13 @@ class RelatedContentManagerTestCase(TestCase):
         related_content = RelatedContent.objects.by_destination(two)
         self.assertEqual(1, related_content.count())
         self.assertEqual(two, related_content[0].destination_object)
+
+    def test_provides_method_for_finding_by_source(self):
+        one, two, three = generate_fake_articles(3)
+        t = RelatedType.objects.create(title="articles")
+        relate(t, one, two)
+        relate(t, three, two)
+
+        related_content = RelatedContent.objects.by_source(one)
+        self.assertEqual(1, related_content.count())
+        self.assertEqual(one, related_content[0].source_object)

@@ -22,6 +22,9 @@ class RelatedContentQuerySet(query.QuerySet):
     def by_destination(self, destination):
         return self.filter(destination_object=destination)
 
+    def by_source(self, source):
+        return self.filter(source_object=source)
+
 
 class RelatedContentManager(models.Manager):
     def get_query_set(self):
@@ -29,6 +32,9 @@ class RelatedContentManager(models.Manager):
 
     def by_destination(self, destination):
         return self.get_query_set().by_destination(destination)
+
+    def by_source(self, source):
+        return self.get_query_set().by_source(source)
 
     def by_type(self, type):
         return self.filter(related_type__title=type)
