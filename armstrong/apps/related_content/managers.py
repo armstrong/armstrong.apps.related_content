@@ -48,6 +48,9 @@ class RelatedContentQuerySet(query.QuerySet):
         """
         return self.filter(source_object=source)
 
+    def by_type(self, type):
+        return self.filter(related_type__title=type)
+
 
 class RelatedContentManager(models.Manager):
     def get_query_set(self):
@@ -66,4 +69,4 @@ class RelatedContentManager(models.Manager):
         return self.get_query_set().by_source(source)
 
     def by_type(self, type):
-        return self.filter(related_type__title=type)
+        return self.get_query_set().by_type(type)

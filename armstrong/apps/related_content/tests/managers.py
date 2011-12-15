@@ -53,6 +53,16 @@ class RelatedContentManagerTestCase(TestCase):
                 one.related.by_type("articles")]
         self.assertTrue(two in destination_objects)
 
+    def test_by_type_can_be_used_after_filtering(self):
+        one, two = generate_fake_articles(2)
+
+        t = RelatedType.objects.create(title="articles")
+        relate(t, one, two)
+
+        destination_objects = [a.destination_object for a in
+                one.related.all().by_type("articles")]
+        self.assertTrue(two in destination_objects)
+
     def test_uses_queryset_with_custom_filter(self):
         one, two, three = create_one_source_to_two_destinations()
         related_content = (RelatedContent.objects.all()
