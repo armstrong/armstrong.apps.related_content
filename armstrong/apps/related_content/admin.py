@@ -63,7 +63,7 @@ def formfield_for_foreignkey_helper(inline, *args, **kwargs):
             False)
     if "initial" not in kwargs and initial_filter:
         # TODO: handle gracefully if unable to load and in non-debug
-        initial = RelatedType.objects.get(**initial_filter)
+        initial = RelatedType.objects.get(**initial_filter).pk
         kwargs["initial"] = initial
     return args, kwargs
 
