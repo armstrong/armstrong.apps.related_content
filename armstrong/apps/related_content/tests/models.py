@@ -7,6 +7,17 @@ from ..models import RelatedContent
 from ..models import RelatedType
 
 
+def generate_model():
+    one, two = generate_fake_articles(2)
+    t = RelatedType.objects.create(title="Some Random Type")
+    c = RelatedContent.objects.create(
+        related_type=t,
+        source_object=one,
+        destination_object=two
+    )
+    return one, two, c
+
+
 class RelatedTypeTestCase(TestCase):
     def test_has_title(self):
         m = RelatedType()
@@ -15,13 +26,7 @@ class RelatedTypeTestCase(TestCase):
 
 class RelatedContentTestCase(TestCase):
     def generate_model(self):
-        one, two = generate_fake_articles(2)
-        t = RelatedType.objects.create(title="Some Random Type")
-        c = RelatedContent.objects.create(
-            related_type=t,
-            source_object=one,
-            destination_object=two
-        )
+        one, two, c = generate_model()
         return c
 
     def test_has_related_Content(self):
@@ -56,3 +61,11 @@ class RelatedContentTestCase(TestCase):
     def test_has_destination_object(self):
         m = self.generate_model()
         self.assertTrue(hasattr(m, "destination_object"))
+
+
+class RelatedContentFieldTestCase(TestCase):
+    def test_related_contains_all_related_models(self):
+        one, two, c = generate_model()
+        related_content = one.related.all()
+        self.assertEqual(1, related_content.count())
+        self.assertEqual(related_content[0].destination_object, two)
