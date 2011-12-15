@@ -44,3 +44,13 @@ class RelatedContentManagerTestCase(TestCase):
         destination_objects = [a.destination_object for a in
                 one.related.by_type("articles")]
         self.assertTrue(two in destination_objects)
+
+    def test_uses_queryset_with_custom_filter(self):
+        one, two, three = generate_fake_articles(3)
+        t = RelatedType.objects.create(title="articles")
+        relate(t, one, two)
+        relate(t, one, three)
+
+        related_content = (RelatedContent.objects.all()
+                .filter(destination_object=two))
+        self.assertEqual(1, related_content.count())
