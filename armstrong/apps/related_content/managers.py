@@ -20,9 +20,25 @@ class RelatedContentQuerySet(query.QuerySet):
         return super(RelatedContentQuerySet, self).filter(**kwargs)
 
     def by_destination(self, destination):
+        """
+        Retrieve any ``RelatedContent`` where the ``destination_object``
+        is equal to the provided ``destination``.
+
+        This is a shortcut for calling::
+
+            RelatedContent.objects.filter(destination_object=destination)
+        """
         return self.filter(destination_object=destination)
 
     def by_source(self, source):
+        """
+        Retrieve any ``RelatedContent`` where the ``source_object``
+        is equal to the provided ``source``.
+
+        This is a shortcut for calling::
+
+            RelatedContent.objects.filter(source_object=source)
+        """
         return self.filter(source_object=source)
 
 
@@ -31,9 +47,15 @@ class RelatedContentManager(models.Manager):
         return RelatedContentQuerySet(self.model, using=self._db)
 
     def by_destination(self, destination):
+        """
+        See ``RelatedContentQuerySet.by_destination``
+        """
         return self.get_query_set().by_destination(destination)
 
     def by_source(self, source):
+        """
+        See ``RelatedContentQuerySet.by_source``
+        """
         return self.get_query_set().by_source(source)
 
     def by_type(self, type):
