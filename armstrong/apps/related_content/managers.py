@@ -19,10 +19,16 @@ class RelatedContentQuerySet(query.QuerySet):
             })
         return super(RelatedContentQuerySet, self).filter(**kwargs)
 
+    def by_destination(self, destination):
+        return self.filter(destination_object=destination)
+
 
 class RelatedContentManager(models.Manager):
     def get_query_set(self):
         return RelatedContentQuerySet(self.model, using=self._db)
+
+    def by_destination(self, destination):
+        return self.get_query_set().by_destination(destination)
 
     def by_type(self, type):
         return self.filter(related_type__title=type)
