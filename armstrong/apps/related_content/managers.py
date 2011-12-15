@@ -7,6 +7,13 @@ get_for_model = ContentType.objects.get_for_model
 
 class RelatedContentQuerySet(query.QuerySet):
     def filter(self, destination_object=None, source_object=None, **kwargs):
+        """
+        See ``QuerySet.filter`` for full documentation
+
+        This adds support for ``destination_object`` and ``source_object``
+        as kwargs.  This converts those objects into the values necessary
+        to handle the ``GenericForeignKey`` fields.
+        """
         if destination_object:
             kwargs.update({
                 "destination_id": destination_object.pk,
