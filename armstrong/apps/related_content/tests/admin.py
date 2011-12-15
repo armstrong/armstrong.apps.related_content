@@ -86,10 +86,12 @@ class RelatedContentInlineTestCase(TestCase):
 
     def test_adds_initial_if_it_is_not_present(self):
         random_return = random.randint(10000, 20000)
+        fake = fudge.Fake()
+        fake.has_attr(pk=random_return)
         args, kwargs = random_args_and_kwargs()
         fake_settings = generate_fake_settings()
         fake_qs = fudge.Fake()
-        fake_qs.expects("get").with_args(title="articles").returns(random_return)
+        fake_qs.expects("get").with_args(title="articles").returns(fake)
         fake_type = generate_fake_type(fake_qs)
         with fudge.patched_context(admin, "RelatedType", fake_type):
             with fudge.patched_context(admin, "settings", fake_settings):
@@ -102,11 +104,12 @@ class RelatedContentInlineTestCase(TestCase):
     def test_ignores_initial_if_provided(self):
         expected_return = random.randint(30000, 40000)
         random_return = random.randint(10000, 20000)
+        fake = fudge.Fake().has_attr(pk=random_return)
         args, kwargs = random_args_and_kwargs()
         kwargs["initial"] = expected_return
         fake_settings = generate_fake_settings()
         fake_qs = fudge.Fake()
-        fake_qs.expects("get").with_args(title="articles").returns(random_return)
+        fake_qs.expects("get").with_args(title="articles").returns(fake)
         fake_type = generate_fake_type(fake_qs)
         with fudge.patched_context(admin, "RelatedType", fake_type):
             with fudge.patched_context(admin, "settings", fake_settings):
