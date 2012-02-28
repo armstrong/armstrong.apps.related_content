@@ -11,6 +11,6 @@ class RelatedContentField(GenericRelation):
         }
         defaults.update(kwargs)
         super(RelatedContentField, self).__init__(RelatedContent, **defaults)
-        
+
 from south.modelsinspector import add_ignored_fields
 add_ignored_fields(["^armstrong\.apps\.related_content\.fields\.RelatedContentField"])
