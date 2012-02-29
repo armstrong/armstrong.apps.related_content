@@ -71,7 +71,7 @@ class RelatedContentFieldTestCase(TestCase):
         self.assertEqual(related_content[0].destination_object, two)
 
 
-class ReverseRelatedContentFieldTestCase(TestCase):
+class ReverseRelatedObjectsFieldTestCase(TestCase):
     def test_contains_all_related_objects_for_given_source(self):
         one, two, c = generate_model()
         related_content = two.reverse_related[c.related_type.title]
