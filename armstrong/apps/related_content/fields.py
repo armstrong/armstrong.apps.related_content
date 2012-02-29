@@ -41,7 +41,7 @@ class BoundRelatedContentAccessor(object):
         """
         See ``RelatedContentQuerySet.__getitem__``
         """
-        if isinstance(index, str) or isinstance(index, unicode):
+        if isinstance(index, basestring):
             return self.by_type(index)
         else:
             raise IndexError("RelatedFields can only be filtered by related_type title")
