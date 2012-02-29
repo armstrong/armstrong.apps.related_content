@@ -55,16 +55,6 @@ class RelatedContentQuerySet(query.QuerySet):
         """
         return self.filter(related_type__title=type)
 
-    def __getitem__(self, index):
-        """
-        Allows for filtering in templates using syntax like
-        obj.related.lead_art.0
-        """
-        if isinstance(index, str):
-            return self.by_type(index)
-        else:
-            return super(RelatedContentQuerySet, self).__getitem__(index)
-
 
 class RelatedContentManager(models.Manager):
     def get_query_set(self):
@@ -87,12 +77,3 @@ class RelatedContentManager(models.Manager):
         See ``RelatedContentQuerySet.by_type``
         """
         return self.get_query_set().by_type(type)
-
-    def __getitem__(self, index):
-        """
-        See ``RelatedContentQuerySet.__getitem__``
-        """
-        if isinstance(index, str) or isinstance(index, unicode):
-            return self.filter(related_type__title=index)
-        else:
-            return super(RelatedContentManager, self).__getitem__(index)
