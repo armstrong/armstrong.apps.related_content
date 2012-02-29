@@ -41,7 +41,7 @@ class RelatedContentManagerTestCase(TestCase):
     def test_by_type_returns_an_empty_queryset_if_no_match_is_found(self):
         one, two = generate_fake_articles(2)
 
-        self.assertEqual([], list(one.related.by_type("unknown")))
+        self.assertEqual([], list(one.related_content.by_type("unknown")))
 
     def test_by_type_returns_matching_related_values_by_type_title(self):
         one, two = generate_fake_articles(2)
@@ -50,7 +50,7 @@ class RelatedContentManagerTestCase(TestCase):
         relate(t, one, two)
 
         destination_objects = [a.destination_object for a in
-                one.related.by_type("articles")]
+                one.related_content.by_type("articles")]
         self.assertTrue(two in destination_objects)
 
     def test_by_type_can_be_used_after_filtering(self):
@@ -60,7 +60,7 @@ class RelatedContentManagerTestCase(TestCase):
         relate(t, one, two)
 
         destination_objects = [a.destination_object for a in
-                one.related.all().by_type("articles")]
+                one.related_content.all().by_type("articles")]
         self.assertTrue(two in destination_objects)
 
     def test_uses_queryset_with_custom_filter(self):

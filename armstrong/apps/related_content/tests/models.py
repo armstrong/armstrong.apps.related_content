@@ -66,7 +66,7 @@ class RelatedContentTestCase(TestCase):
 class RelatedContentFieldTestCase(TestCase):
     def test_related_contains_all_related_models(self):
         one, two, c = generate_model()
-        related_content = one.related.all()
+        related_content = one.related_content.all()
         self.assertEqual(1, related_content.count())
         self.assertEqual(related_content[0].destination_object, two)
 
