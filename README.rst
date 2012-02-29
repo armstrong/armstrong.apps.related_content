@@ -19,10 +19,10 @@ to a RelatedType object that consists of a title.
 Creating RelatedContent objects
 -------------------------------
 
-This package provides `armstrong.apps.related_content.admin.RelatedContentInline` which
+This package provides ``armstrong.apps.related_content.admin.RelatedContentInline`` which
 should be the primary way that staff interact with the related_content system.
 
-For python access, we provide `armstrong.apps.related_content.fields.RelatedContentField`
+For python access, we provide ``armstrong.apps.related_content.fields.RelatedContentField``
 which is a `GenericRelation`_ that has the right defaults to work with the related_content
 system.
 
@@ -32,8 +32,8 @@ system.
 Accessing Related Content
 -------------------------
 
-For convenient access, we provide `armstrong.apps.related_content.fields.RelatedObjectsField`
-and `armstrong.apps.related_content.fields.ReverseRelatedObjectsField`. These fields
+For convenient access, we provide ``armstrong.apps.related_content.fields.RelatedObjectsField``
+and ``armstrong.apps.related_content.fields.ReverseRelatedObjectsField``. These fields
 utilize the GenericForeignKeyQuerySet for efficient access of the objects on the
 far side of the RelatedContent objects. For example::
 
