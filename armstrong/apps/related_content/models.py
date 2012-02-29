@@ -6,14 +6,6 @@ from genericm2m.models import RelatedObjectsDescriptor
 from . import managers
 
 
-class RelatedObjectsField(RelatedObjectsDescriptor):
-    def __init__(self, model=None, from_field="source_object",
-            to_field="destination_object"):
-        if not model:
-            model = RelatedContent
-        super(RelatedObjectsField, self).__init__(model, from_field, to_field)
-
-
 class RelatedType(models.Model):
     title = models.CharField(max_length=100)
 
