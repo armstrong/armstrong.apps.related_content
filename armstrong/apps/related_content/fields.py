@@ -33,6 +33,10 @@ class BoundRelatedContentAccessor(object):
         qs = QuerySet(self.model)
         return qs.filter(**self.get_query_set_params())
 
+    def all(self):
+        qs = self.get_query_set()
+        return GenericForeignKeyQuerySet(qs, gfk=self.to_field)
+
     def by_type(self, type):
         qs = self.get_query_set().filter(related_type__title=type)
         return GenericForeignKeyQuerySet(qs, gfk=self.to_field)
