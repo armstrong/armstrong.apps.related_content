@@ -16,14 +16,6 @@ class RelatedContentFieldTestCase(TestCase):
         self.assertEqual(related_content[0].destination_object, two)
 
 
-class ReverseRelatedObjectsFieldTestCase(TestCase):
-    def test_contains_all_related_objects_for_given_source(self):
-        one, two, c = generate_model()
-        related_content = two.reverse_related.all()
-        self.assertEqual(1, related_content.count())
-        self.assertEqual(related_content[0], one)
-
-
 class RelatedObjectsFieldTestCase(TestCase):
     def test_contains_all_related_objects_for_given_source(self):
         one, two, c = generate_model()
@@ -31,3 +23,10 @@ class RelatedObjectsFieldTestCase(TestCase):
         self.assertEqual(1, related_content.count())
         self.assertEqual(related_content[0], two)
 
+
+class ReverseRelatedObjectsFieldTestCase(TestCase):
+    def test_contains_all_related_objects_for_given_source(self):
+        one, two, c = generate_model()
+        related_content = two.reverse_related.all()
+        self.assertEqual(1, related_content.count())
+        self.assertEqual(related_content[0], one)
