@@ -2,10 +2,6 @@ armstrong.apps.related_content
 ==============================
 Provides mechanism for relating content to other models
 
-.. warning:: This is development level software.  Please do not unless you are
-             familiar with what that means and are comfortable using that type
-             of software.
-
 Overview
 --------
 
