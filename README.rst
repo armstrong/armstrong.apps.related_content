@@ -9,9 +9,11 @@ together through a ``GenericForeignKey`` for the ``source`` and the
 all relationships are ordered.
 
 
+Usage
+-----
 
 Creating RelatedContent objects
--------------------------------
+"""""""""""""""""""""""""""""""
 
 This package provides ``armstrong.apps.related_content.admin.RelatedContentInline`` which
 should be the primary way that staff interact with the related_content system.
@@ -24,7 +26,7 @@ system.
 
 
 Accessing Related Content
--------------------------
+"""""""""""""""""""""""""
 
 For convenient access, we provide ``armstrong.apps.related_content.fields.RelatedObjectsField``
 and ``armstrong.apps.related_content.fields.ReverseRelatedObjectsField``. These fields
