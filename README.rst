@@ -48,13 +48,27 @@ to an Image, or an ImageSet or an embeded video type as long as you have a lead_
 template in the right place.
 
 
-Installation
-------------
+Installation & Configuration
+----------------------------
+You can install the latest release of ``armstrong.apps.related_content`` using
+`pip`_:
 
 ::
 
-    name="armstrong.apps.related_content"
-    pip install -e git://github.com/armstrong/$name#egg=$name
+    pip install armstrong.apps.related_content
+
+Make sure to add ``armstrong.apps.related_content`` to your ``INSTALLED_APPS``.
+You can add this however you like.  This works as a copy-and-paste solution:
+
+::
+
+	INSTALLED_APPS += ["armstrong.apps.related_content", ]
+
+Once installed, you have to run either ``syncdb``, or ``migrate`` if you are
+using `South`_.
+
+.. _pip: http://www.pip-installer.org/
+.. _South: http://south.aeracode.org/
 
 
 Contributing
