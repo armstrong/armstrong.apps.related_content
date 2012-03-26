@@ -2,59 +2,70 @@ armstrong.apps.related_content
 ==============================
 Provides mechanism for relating content to other models
 
-Overview
---------
-
-armstrong.apps.related_content provides a model that generically links objects
-as well as providing a type and ordering for those links. The heart of the system is
-the RelatedContent type which consits of a GenericForeignKey to a source object, a
-GenericForeignKey to a destination object, an IntegerField for order and a ForeignKey
-to a RelatedType object that consists of a title.
+You can use ``armstrong.apps.related_content`` to link two separate models
+together through a ``GenericForeignKey`` for the ``source`` and the
+``destination``.  You can further organize the relationship with
+``RelatedType`` (think: "articles", "images", "external_links", and so on) and
+all relationships are ordered.
 
 
-Creating RelatedContent objects
--------------------------------
+Usage
+-----
+You do *not* have to change your models to utilize related content---it exists
+outside of your model.  There are two fields that you can add that give you
+easy access to your related content:
 
-This package provides ``armstrong.apps.related_content.admin.RelatedContentInline`` which
-should be the primary way that staff interact with the related_content system.
+* ``armstrong.apps.related_content.fields.RelatedObjectsField``
+* ``armstrong.apps.related_content.fields.ReverseRelatedObjectsField``
 
-For python access, we provide ``armstrong.apps.related_content.fields.RelatedContentField``
-which is a `GenericRelation`_ that has the right defaults to work with the related_content
-system.
+The first let's you access objects where your model is the ``source``, the
+latter lets you access objects where your model is the ``destination``.  Note
+that these return the *actual* models that are related, not the
+``RelatedContent`` model.  If you need access to the raw ``RelatedContent``
+model directly from your model, see
+``armstrong.apps.related_content.fields.RelatedContentField``.
 
-.. _GenericRelation: https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#reverse-generic-relations
+You can also use the ``RelatedContentInline`` for exposing an admin interface
+to your related content inside Django's admin.
 
 
 Accessing Related Content
--------------------------
+"""""""""""""""""""""""""
+You can access fields through the ``RelatedObjectsField`` or
+``ReverseRelatedObjectsField`` by calling ``all()`` or
+``by_type("some_type")``.  These return QuerySet-like objects, but since they
+are generic relationships, they're not quite QuerySets.
 
-For convenient access, we provide ``armstrong.apps.related_content.fields.RelatedObjectsField``
-and ``armstrong.apps.related_content.fields.ReverseRelatedObjectsField``. These fields
-utilize the GenericForeignKeyQuerySet for efficient access of the objects on the
-far side of the RelatedContent objects. For example::
-
-		obj.related['lead_art'][0] 
-		# retrieves the destination_object from the first RelatedContent object with
-		# a RelatedType with title 'lead_art'
-
-While this syntax might seem somewhat strange, it allows for convenient usage in templates::
-
-		{% load layout_helpers %}
-		{% render_model object.related.lead_art.0 'lead_art' %}
-
-This usage will render the lead_art.html template that is appropriate for the type that
-the user has associated with the object. This means you can have a lead_art relationship
-to an Image, or an ImageSet or an embeded video type as long as you have a lead_art.html
-template in the right place.
-
-
-Installation
-------------
+Inside templates, you can access related content by type using the dot-syntax.
+For example, you could load the first related content of a type ``"articles"``
+with this syntax:
 
 ::
 
-    name="armstrong.apps.related_content"
-    pip install -e git://github.com/armstrong/$name#egg=$name
+    {{ my_article.related.articles.0 }}
+
+
+Installation & Configuration
+----------------------------
+You can install the latest release of ``armstrong.apps.related_content`` using
+`pip`_:
+
+::
+
+    pip install armstrong.apps.related_content
+
+Make sure to add ``armstrong.apps.related_content`` to your ``INSTALLED_APPS``.
+You can add this however you like.  This works as a copy-and-paste solution:
+
+::
+
+	INSTALLED_APPS += ["armstrong.apps.related_content", ]
+
+Once installed, you have to run either ``syncdb``, or ``migrate`` if you are
+using `South`_.
+
+.. _pip: http://www.pip-installer.org/
+.. _South: http://south.aeracode.org/
 
 
 Contributing
@@ -76,7 +87,7 @@ State of Project
 Armstrong is an open-source news platform that is freely available to any
 organization.  It is the result of a collaboration between the `Texas Tribune`_
 and `Bay Citizen`_, and a grant from the `John S. and James L. Knight
-Foundation`_.  The first release is scheduled for June, 2011.
+Foundation`_.
 
 To follow development, be sure to join the `Google Group`_.
 
@@ -92,7 +103,7 @@ probably looking for that.
 
 License
 -------
-Copyright 2011 Bay Citizen and Texas Tribune
+Copyright 2011-2012 Bay Citizen and Texas Tribune
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -5,7 +5,7 @@ from django.db.models.query import QuerySet
 from armstrong.core.arm_wells.querysets import GenericForeignKeyQuerySet
 
 from .models import RelatedContent
-from .managers import RelatedContentManager
+
 
 class BoundRelatedContentAccessor(object):
     def __init__(self, instance, model, from_field, to_field, *args, **kwargs):
@@ -21,7 +21,8 @@ class BoundRelatedContentAccessor(object):
         for field in self.model._meta.virtual_fields:
             if field.name == self.from_field:
                 self.params = {
-                    field.ct_field: ContentType.objects.get_for_model(self.instance).pk,
+                    field.ct_field: ContentType.objects.get_for_model(
+                            self.instance).pk,
                     field.fk_field: self.instance.pk
                 }
                 break
@@ -48,7 +49,8 @@ class BoundRelatedContentAccessor(object):
         if isinstance(index, basestring):
             return self.by_type(index)
         else:
-            raise IndexError("RelatedFields can only be filtered by related_type title")
+            raise IndexError("RelatedFields can only be filtered by "
+                    "related_type title")
 
 
 class NonAssignableError(RuntimeError):
@@ -56,7 +58,8 @@ class NonAssignableError(RuntimeError):
 
 
 class RelatedM2MDescriptor(object):
-    def __init__(self, model=RelatedContent, from_field="source_object", to_field="destination_object"):
+    def __init__(self, model=RelatedContent, from_field="source_object",
+            to_field="destination_object"):
         self.model = model
         self.from_field = from_field
         self.to_field = to_field
@@ -70,11 +73,13 @@ class RelatedM2MDescriptor(object):
         )
 
     def __set__(self, instance, value):
-        raise NonAssignableError("RelatedFields cannot be used to assign RelatedContent objects, use a RelatedContentField")
+        raise NonAssignableError("RelatedFields cannot be used to assign "
+                " RelatedContent objects, use a RelatedContentField")
 
 
 class RelatedObjectsField(object):
-    def __init__(self, model=RelatedContent, from_field="source_object", to_field="destination_object"):
+    def __init__(self, model=RelatedContent, from_field="source_object",
+            to_field="destination_object"):
         self.model = model
         self.from_field = from_field
         self.to_field = to_field
@@ -104,5 +109,7 @@ class RelatedContentField(GenericRelation):
         defaults.update(kwargs)
         super(RelatedContentField, self).__init__(RelatedContent, **defaults)
 
+
 from south.modelsinspector import add_ignored_fields
-add_ignored_fields(["^armstrong\.apps\.related_content\.fields\.RelatedContentField"])
+add_ignored_fields(
+        ["^armstrong\.apps\.related_content\.fields\.RelatedContentField"])
