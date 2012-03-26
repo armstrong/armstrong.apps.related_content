@@ -2,14 +2,12 @@ armstrong.apps.related_content
 ==============================
 Provides mechanism for relating content to other models
 
-Overview
---------
+You can use ``armstrong.apps.related_content`` to link two separate models
+together through a ``GenericForeignKey`` for the ``source`` and the
+``destination``.  You can further organize the relationship with
+``RelatedType`` (think: "articles", "images", "external_links", and so on) and
+all relationships are ordered.
 
-armstrong.apps.related_content provides a model that generically links objects
-as well as providing a type and ordering for those links. The heart of the system is
-the RelatedContent type which consits of a GenericForeignKey to a source object, a
-GenericForeignKey to a destination object, an IntegerField for order and a ForeignKey
-to a RelatedType object that consists of a title.
 
 
 Creating RelatedContent objects
