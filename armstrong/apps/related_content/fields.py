@@ -74,7 +74,7 @@ class RelatedM2MDescriptor(object):
 
     def __set__(self, instance, value):
         raise NonAssignableError("RelatedFields cannot be used to assign "
-                " RelatedContent objects, use a RelatedContentField")
+                "RelatedContent objects, use a RelatedContentField")
 
 
 class RelatedObjectsField(object):
