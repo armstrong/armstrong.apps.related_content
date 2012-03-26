@@ -11,41 +11,38 @@ all relationships are ordered.
 
 Usage
 -----
+You do *not* have to change your models to utilize related content---it exists
+outside of your model.  There are two fields that you can add that give you
+easy access to your related content:
 
-Creating RelatedContent objects
-"""""""""""""""""""""""""""""""
+* ``armstrong.apps.related_content.fields.RelatedObjectsField``
+* ``armstrong.apps.related_content.fields.ReverseRelatedObjectsField``
 
-This package provides ``armstrong.apps.related_content.admin.RelatedContentInline`` which
-should be the primary way that staff interact with the related_content system.
+The first let's you access objects where your model is the ``source``, the
+latter lets you access objects where your model is the ``destination``.  Note
+that these return the *actual* models that are related, not the
+``RelatedContent`` model.  If you need access to the raw ``RelatedContent``
+model directly from your model, see
+``armstrong.apps.related_content.fields.RelatedContentField``.
 
-For python access, we provide ``armstrong.apps.related_content.fields.RelatedContentField``
-which is a `GenericRelation`_ that has the right defaults to work with the related_content
-system.
-
-.. _GenericRelation: https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#reverse-generic-relations
+You can also use the ``RelatedContentInline`` for exposing an admin interface
+to your related content inside Django's admin.
 
 
 Accessing Related Content
 """""""""""""""""""""""""
+You can access fields through the ``RelatedObjectsField`` or
+``ReverseRelatedObjectsField`` by calling ``all()`` or
+``by_type("some_type")``.  These return QuerySet-like objects, but since they
+are generic relationships, they're not quite QuerySets.
 
-For convenient access, we provide ``armstrong.apps.related_content.fields.RelatedObjectsField``
-and ``armstrong.apps.related_content.fields.ReverseRelatedObjectsField``. These fields
-utilize the GenericForeignKeyQuerySet for efficient access of the objects on the
-far side of the RelatedContent objects. For example::
+Inside templates, you can access related content by type using the dot-syntax.
+For example, you could load the first related content of a type ``"articles"``
+with this syntax:
 
-		obj.related['lead_art'][0] 
-		# retrieves the destination_object from the first RelatedContent object with
-		# a RelatedType with title 'lead_art'
+::
 
-While this syntax might seem somewhat strange, it allows for convenient usage in templates::
-
-		{% load layout_helpers %}
-		{% render_model object.related.lead_art.0 'lead_art' %}
-
-This usage will render the lead_art.html template that is appropriate for the type that
-the user has associated with the object. This means you can have a lead_art relationship
-to an Image, or an ImageSet or an embeded video type as long as you have a lead_art.html
-template in the right place.
+    {{ my_article.related.articles.0 }}
 
 
 Installation & Configuration
