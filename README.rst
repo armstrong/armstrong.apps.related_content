@@ -68,6 +68,15 @@ using `South`_.
 .. _South: http://south.aeracode.org/
 
 
+Backwards Incompatible Changes
+------------------------------
+
+*Version 2.0*
+  * ``RelatedObjectsField`` no longer extends
+    ``genericm2m.models.RelatedObjectsDescriptor``.
+  * All fields have been been moved into the ``fields`` module now.
+
+
 Contributing
 ------------
 
