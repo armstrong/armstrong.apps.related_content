@@ -62,18 +62,3 @@ class RelatedContentTestCase(TestCase):
         m = self.generate_model()
         self.assertTrue(hasattr(m, "destination_object"))
 
-
-class RelatedContentFieldTestCase(TestCase):
-    def test_related_contains_all_related_models(self):
-        one, two, c = generate_model()
-        related_content = one.related.all()
-        self.assertEqual(1, related_content.count())
-        self.assertEqual(related_content[0].destination_object, two)
-
-
-class ReverseRelatedContentFieldTestCase(TestCase):
-    def test_contains_all_related_objects_for_given_source(self):
-        one, two, c = generate_model()
-        related_content = two.reverse_related.all()
-        self.assertEqual(1, related_content.count())
-        self.assertEqual(related_content[0].source_object, one)

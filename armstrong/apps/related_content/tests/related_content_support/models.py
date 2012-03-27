@@ -1,12 +1,13 @@
 from django.db import models
 from armstrong.core.arm_content.mixins.images import BaseThumbnailMixin
-from ...fields import RelatedContentField
-from ...fields import ReverseRelatedObjectsField
+from ...fields import (RelatedContentField, RelatedObjectsField,
+        ReverseRelatedObjectsField)
 
 
 class Article(models.Model):
     title = models.CharField(max_length=250)
-    related = RelatedContentField()
+    related_content = RelatedContentField()
+    related = RelatedObjectsField()
     reverse_related = ReverseRelatedObjectsField()
 
 
