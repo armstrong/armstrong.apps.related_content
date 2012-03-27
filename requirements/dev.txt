@@ -1,3 +1,2 @@
--r ./base.txt
 armstrong.dev>=1.10.1
 armstrong.core.arm_content>=0.8.1
