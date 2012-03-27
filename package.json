@@ -3,7 +3,7 @@
     "version": "2.0.1alpha.0",
     "description": "Provides mechanism for relating content to other models",
     "install_requires": [
-        "Django==1.3.1",
+        "Django==1.3.1,==1.4",
         "armstrong.hatband>=1.2",
         "armstrong.core.arm_wells>=1.0"
     ]
