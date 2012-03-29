@@ -1,5 +1,0 @@
-# The only dependencies that should be declared here are those that can not
-# be declared inside a normal setup.py (such as Git repositories).
-
-# Django is included here as the base as pip can not install an empty file
-Django==1.3.1
